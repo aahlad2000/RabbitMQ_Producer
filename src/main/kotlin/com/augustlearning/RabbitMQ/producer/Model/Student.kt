@@ -10,8 +10,9 @@ import java.util.*
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-data class MessageModel(
-    var messageId : String,
-    var message : String,
+data class Student(
+    var studentId : String,
+    var subjectsTakenByStudent : List<String>,
+    var collegeName : String,
     var date : Date
 )

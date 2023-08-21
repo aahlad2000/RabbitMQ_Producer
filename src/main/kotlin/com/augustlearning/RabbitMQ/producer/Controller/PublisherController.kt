@@ -1,7 +1,7 @@
 package com.augustlearning.RabbitMQ.producer.Controller
 
 import com.augustlearning.RabbitMQ.producer.Config.MessagingQueueConfig
-import com.augustlearning.RabbitMQ.producer.Model.MessageModel
+import com.augustlearning.RabbitMQ.producer.Model.Student
 import kotlinx.coroutines.runBlocking
 import org.springframework.amqp.rabbit.core.RabbitTemplate
 import org.springframework.web.bind.annotation.PostMapping
@@ -15,10 +15,9 @@ import java.util.UUID
 class PublisherController(var template : RabbitTemplate) {
 
     @PostMapping("publish")
-    fun publishMessage(@RequestBody messageModel: MessageModel) : String = runBlocking {
-        messageModel.messageId = UUID.randomUUID().toString()
-        messageModel.message = "Message"
-        template.convertAndSend(MessagingQueueConfig.EXCHANGE,MessagingQueueConfig.ROUTING_KEY, messageModel)
+    fun publishMessage(@RequestBody student: Student) : String = runBlocking {
+        student.studentId = UUID.randomUUID().toString()
+        template.convertAndSend(MessagingQueueConfig.EXCHANGE,MessagingQueueConfig.ROUTING_KEY, student)
         return@runBlocking "Message Published"
     }
 
