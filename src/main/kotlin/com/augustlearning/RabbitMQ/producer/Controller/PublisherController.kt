@@ -17,7 +17,7 @@ class PublisherController(var template : RabbitTemplate) {
     @PostMapping("publish")
     fun publishMessage(@RequestBody student: Student) : String = runBlocking {
         student.studentId = UUID.randomUUID().toString()
-        template.convertAndSend(MessagingQueueConfig.EXCHANGE,MessagingQueueConfig.ROUTING_KEY, student)
+        template.convertAndSend(MessagingQueueConfig.EXCHANGE,MessagingQueueConfig.ROUTING_KEY, student.toString())
         return@runBlocking "Message Published"
     }
 
